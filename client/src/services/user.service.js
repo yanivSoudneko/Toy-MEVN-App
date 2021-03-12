@@ -10,11 +10,15 @@ export const userService = {
 async function login(user) {
     const { username, password } = user;
     try {
-        const user = await httpService.post(AUTH_URL + 'login', {
+        const userRes = await httpService.post(AUTH_URL + 'login', {
             username,
             password,
         });
-        return user;
+        console.log(
+            '🚀 ~ file: user.service.js ~ line 17 ~ login ~ userRes',
+            userRes
+        );
+        return userRes;
     } catch (error) {
         console.log(
             '🚀 ~ file: user.service.js ~ line 10 ~ login ~ error',

@@ -11,7 +11,7 @@ export default {
         },
     },
     actions: {
-        async login({commit}, { user }) {
+        async login({ commit }, { user }) {
             try {
                 const resUser = userService.login(user);
                 if (!resUser) {

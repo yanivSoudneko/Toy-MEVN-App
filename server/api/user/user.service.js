@@ -1,7 +1,7 @@
-const dbService = require("../../services/db.service");
-const logger = require("../../services/logger.service");
-const reviewService = require("../review/review.service");
-const ObjectId = require("mongodb").ObjectId;
+const dbService = require('../../services/db.service');
+const logger = require('../../services/logger.service');
+const reviewService = require('../review/review.service');
+const ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
     query,
@@ -15,7 +15,7 @@ module.exports = {
 async function query(filterBy = {}) {
     const criteria = _buildCriteria(filterBy);
     try {
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         var users = await collection.find(criteria).toArray();
         users = users.map((user) => {
             user.createdAt = ObjectId(user._id).getTimestamp();
@@ -23,14 +23,14 @@ async function query(filterBy = {}) {
         });
         return users;
     } catch (err) {
-        logger.error("cannot find users", err);
+        logger.error('cannot find users', err);
         throw err;
     }
 }
 
 async function getById(userId) {
     try {
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         const user = await collection.findOne({ _id: ObjectId(userId) });
         delete user.password;
 
@@ -51,7 +51,7 @@ async function getById(userId) {
 
 async function getByUsername(username) {
     try {
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         const user = await collection.findOne({ username });
         return user;
     } catch (err) {
@@ -62,7 +62,7 @@ async function getByUsername(username) {
 
 async function remove(userId) {
     try {
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         await collection.deleteOne({ _id: ObjectId(userId) });
     } catch (err) {
         logger.error(`cannot remove user ${userId}`, err);
@@ -79,7 +79,7 @@ async function update(user) {
             fullname: user.fullname,
             score: user.score,
         };
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         await collection.updateOne(
             { _id: userToSave._id },
             { $set: userToSave }
@@ -100,11 +100,11 @@ async function add(user) {
             fullname: user.fullname,
             score: user.score || 0,
         };
-        const collection = await dbService.getCollection("user");
+        const collection = await dbService.getCollection('user');
         await collection.insertOne(userToAdd);
         return userToAdd;
     } catch (err) {
-        logger.error("cannot insert user", err);
+        logger.error('cannot insert user', err);
         throw err;
     }
 }
@@ -112,7 +112,7 @@ async function add(user) {
 function _buildCriteria(filterBy) {
     const criteria = {};
     if (filterBy.txt) {
-        const txtCriteria = { $regex: filterBy.txt, $options: "i" };
+        const txtCriteria = { $regex: filterBy.txt, $options: 'i' };
         criteria.$or = [
             {
                 username: txtCriteria,

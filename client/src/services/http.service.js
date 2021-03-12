@@ -1,9 +1,7 @@
 import Axios from 'axios';
 
 const BASE_URL =
-    process.env.NODE_ENV === 'production'
-        ? '/api/'
-        : 'http//localhost:3030/api/';
+    process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3030/api/';
 
 var axios = Axios.create({
     withCredentials: true,
@@ -25,6 +23,10 @@ export const httpService = {
 };
 
 async function ajax(endpoint, method = 'get', data = null) {
+    console.log(
+        '🚀 ~ file: http.service.js ~ line 28 ~ ajax ~ endpoint',
+        endpoint
+    );
     try {
         const url = `${BASE_URL}${endpoint}`;
         console.log(' ~ file: http.service.js ', {
@@ -40,7 +42,8 @@ async function ajax(endpoint, method = 'get', data = null) {
         return res.data;
     } catch (err) {
         console.log(
-            `Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`
+            `Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data:`,
+            data
         );
         console.dir(err);
         if (err.response && err.response.status === 401) {
