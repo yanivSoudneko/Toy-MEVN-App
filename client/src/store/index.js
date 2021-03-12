@@ -6,7 +6,7 @@ import userModule from './user.store';
 
 export default new Vuex.Store({
     // namespaced: true,
-    module: {
+    modules: {
         user: userModule,
     },
 });

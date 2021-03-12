@@ -20,7 +20,8 @@ form {
 </style>
 
 <script>
-// import { mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
 	name: "Login",
 	data() {
@@ -30,6 +31,8 @@ export default {
 	// 	...mapState("users", ["users"]),
 	// },
 	methods: {
+		...mapActions(["user/login"]),
+
 		async submit() {
 			const user = this.user;
 			const errFlag = false;
@@ -51,7 +54,7 @@ export default {
 			if (errFlag) return;
 			try {
 				console.log(this.$store);
-				this.$store.dispatch({ type: "users/login", user: this.user });
+				this["user/login"]({ user: this.user });
 			} catch (error) {
 				console.log(
 					"🚀 ~ file: Login.vue ~ line 53 ~ submit ~ error",

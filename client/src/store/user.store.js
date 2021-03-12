@@ -1,3 +1,4 @@
+import { userService } from '../services/user.service';
 export default {
     namespaced: true,
     state: { user: null, error: [] },
@@ -10,7 +11,7 @@ export default {
         },
     },
     actions: {
-        async login(context, { user }) {
+        async login({commit}, { user }) {
             try {
                 const resUser = userService.login(user);
                 if (!resUser) {
