@@ -20,11 +20,15 @@ form {
 </style>
 
 <script>
+// import { mapState } from "vuex";
 export default {
 	name: "Login",
 	data() {
 		return { user: { password: "3GqrryGN", username: "darkmift" } };
 	},
+	// computed: {
+	// 	...mapState("users", ["users"]),
+	// },
 	methods: {
 		async submit() {
 			const user = this.user;
@@ -47,13 +51,7 @@ export default {
 			if (errFlag) return;
 			try {
 				console.log(this.$store);
-				this.$store.dispatch(
-					"user/login",
-					{
-						...this.user,
-					},
-					{ root: true }
-				);
+				this.$store.dispatch({ type: "users/login", user: this.user });
 			} catch (error) {
 				console.log(
 					"🚀 ~ file: Login.vue ~ line 53 ~ submit ~ error",

@@ -5,7 +5,7 @@ Vue.use(Vuex);
 import userModule from './user.store';
 
 export default new Vuex.Store({
-    namespaced: true,
+    // namespaced: true,
     module: {
         user: userModule,
     },
