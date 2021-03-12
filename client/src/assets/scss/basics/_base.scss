@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Montserrat, sans-serif;
+    line-height: 1.6;
+    color: $clr2;
+}
+
+body {
+    margin: 0;
+    background-color: antiquewhite;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: GreatVibes, serif;
+    margin: 0 0 1rem;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: rem(50px);
+}
+
+p {
+    max-width: 48ch;
+    margin: 0 0 1rem;
+}
+
+img {
+    width: 100%;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: $border1;
+    margin: 2px;
+}
+
+button {
+    outline: none;
+    border: $border1;
+    padding: 8px 16px;
+    background-color: $clr3;
+    font-family: Montserrat;
+}

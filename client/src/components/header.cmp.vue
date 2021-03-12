@@ -1,0 +1,59 @@
+<template>
+	<div class="nav-bar flex j-between">
+		<div class="logo">Fucking Logo</div>
+		<div class="nav-menu flex">
+			<!-- show always -->
+			<template>
+				<router-link class="white-text" active-class="active" to="/">
+					Home
+				</router-link>
+				<router-link
+					v-if="user"
+					class="white-text"
+					active-class="active"
+					to="/about"
+				>
+					About
+				</router-link>
+			</template>
+			<!-- if user -->
+			<template v-if="!user">
+				<router-link
+					class="white-text"
+					active-class="active"
+					to="/login"
+				>
+					Login
+				</router-link>
+				<router-link
+					class="white-text"
+					active-class="active"
+					to="/signup"
+				>
+					Signup
+				</router-link>
+			</template>
+			<!-- if user is null -->
+			<template v-else>
+				<router-link
+					class="white-text"
+					active-class="active"
+					to="/logout"
+				>
+					Logout
+				</router-link>
+			</template>
+		</div>
+	</div>
+</template>
+
+
+
+<script>
+export default {
+	name: "NavBar",
+	data() {
+		return { user: null };
+	},
+};
+</script>
