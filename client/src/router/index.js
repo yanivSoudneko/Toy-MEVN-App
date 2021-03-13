@@ -4,8 +4,7 @@ import Home from '../views/Home';
 import About from '../views/About';
 import Login from '../views/Login';
 import Signup from '../views/Signup';
-
-
+import { userService } from '../services/user.service';
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,7 +14,7 @@ const routes = [
         component: Home,
     },
     {
-        path: '/',
+        path: '/about',
         name: 'About',
         component: About,
     },
@@ -36,15 +35,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // // redirect to login page if not logged in and trying to access a restricted page
-    // const publicPages = ['/login', '/register'];
-    // const authRequired = !publicPages.includes(to.path);
-    // const loggedIn = localStorage.getItem('user');
+    // redirect to login page if not logged in and trying to access a restricted page
+    const publicPages = ['/login', '/register', '/'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = userService.checkStoredUser();
 
-    // if (authRequired && !loggedIn) {
-    //   return next('/login');
-    // }
-    // console.log('routing to', to, 'from', from);
+    if (authRequired && !loggedIn) {
+        return next('/login');
+    }
+    console.log('routing to', to, 'from', from);
     next();
 });
 
