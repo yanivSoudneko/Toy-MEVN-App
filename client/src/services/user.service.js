@@ -20,24 +20,17 @@ async function login(user) {
         _storeUserLocally(userRes);
         return userRes;
     } catch (error) {
-        console.log(
-            '🚀 ~ file: user.service.js ~ line 10 ~ login ~ error',
-            error
-        );
-        return { error };
+        throw { error };
     }
 }
+
 async function signup(user) {
     try {
         const userRes = await httpService.post(AUTH_URL + 'signup', user);
         _storeUserLocally(userRes);
         return userRes;
     } catch (error) {
-        console.log(
-            '🚀 ~ file: user.service.js ~ line 10 ~ login ~ error',
-            error
-        );
-        return { error };
+        throw { error };
     }
 }
 

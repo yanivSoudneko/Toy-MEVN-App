@@ -15,6 +15,10 @@ async function login(username, password) {
 }
 
 async function signup(username, password, lname, fname) {
+    const user = await userService.getByUsername(username);
+    if (user) {
+        return Promise.reject('Username not available');
+    }
     const saltRounds = 10;
 
     logger.debug(

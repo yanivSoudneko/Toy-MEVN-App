@@ -11,6 +11,11 @@ export default {
 		console.log("hello");
 		this.$store.dispatch({ type: "user/checkStoredUser" });
 	},
+	computed: {
+		error() {
+			return this.$store.getters["user/error"];
+		},
+	},
 	components: {
 		navBar,
 	},

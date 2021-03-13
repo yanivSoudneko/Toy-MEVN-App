@@ -20,19 +20,12 @@ form {
 </style>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-
 export default {
 	name: "Login",
 	data() {
-		return { user: { password: "3GqrryGN", username: "darkmift" } };
+		return { user: { password: "3GqrryGN", username: "darkmiftYY" } };
 	},
-	// computed: {
-	// 	...mapState("users", ["users"]),
-	// },
 	methods: {
-		...mapActions(["user/login"]),
-
 		async submit() {
 			const user = this.user;
 			const errFlag = false;
@@ -52,16 +45,20 @@ export default {
 			}
 
 			if (errFlag) return;
-			try {
-				console.log(this.$store);
-				this["user/login"]({ user: this.user });
-				this.$router.push("/");
-			} catch (error) {
-				console.log(
-					"🚀 ~ file: Login.vue ~ line 53 ~ submit ~ error",
-					error
-				);
-			}
+			this.$store
+				.dispatch({ type: "user/login", user: this.user })
+				.then((res) => {
+					if (this.error) {
+						this.$store.commit({ type: "user/setError" });
+						return;
+					}
+					this.$router.push("/");
+				});
+		},
+	},
+	computed: {
+		error() {
+			return this.$store.getters["user/error"];
 		},
 	},
 };
