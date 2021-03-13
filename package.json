@@ -1,0 +1,20 @@
+{
+    "name": "EX1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "cleanup": "find -iname desktop.ini -delete"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Darkmift/Toy-MEVN-App.git"
+    },
+    "keywords": [],
+    "author": "Avi E. Koenig",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Darkmift/Toy-MEVN-App/issues"
+    },
+    "homepage": "https://github.com/Darkmift/Toy-MEVN-App#readme"
+}
