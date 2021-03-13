@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
     // if (authRequired && !loggedIn) {
     //   return next('/login');
     // }
-    console.log('routing to', to, 'from', from);
+    // console.log('routing to', to, 'from', from);
     next();
 });
 

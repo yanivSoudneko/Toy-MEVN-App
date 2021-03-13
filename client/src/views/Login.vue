@@ -55,6 +55,7 @@ export default {
 			try {
 				console.log(this.$store);
 				this["user/login"]({ user: this.user });
+				this.$router.push("/");
 			} catch (error) {
 				console.log(
 					"🚀 ~ file: Login.vue ~ line 53 ~ submit ~ error",

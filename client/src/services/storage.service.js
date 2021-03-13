@@ -8,7 +8,12 @@ function store(key, val) {
     localStorage.setItem(key, val);
 }
 
+function remove(key) {
+    localStorage.removeItem(key);
+}
+
 export const storageService = {
     load,
     store,
+    remove,
 };

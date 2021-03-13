@@ -8,8 +8,8 @@ var axios = Axios.create({
 });
 
 export const httpService = {
-    get(endpoint, data) {
-        return ajax(endpoint, 'GET', data);
+    get(endpoint, data, params = null) {
+        return ajax(endpoint, 'GET', data, params);
     },
     post(endpoint, data) {
         return ajax(endpoint, 'POST', data);
@@ -22,7 +22,7 @@ export const httpService = {
     },
 };
 
-async function ajax(endpoint, method = 'get', data = null) {
+async function ajax(endpoint, method = 'get', data = null, params = null) {
     console.log(
         '🚀 ~ file: http.service.js ~ line 28 ~ ajax ~ endpoint',
         endpoint
@@ -38,6 +38,7 @@ async function ajax(endpoint, method = 'get', data = null) {
             url,
             method,
             data,
+            params,
         });
         return res.data;
     } catch (err) {

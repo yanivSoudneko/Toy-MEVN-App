@@ -38,7 +38,8 @@
 				<router-link
 					class="white-text"
 					active-class="active"
-					to="/logout"
+					to="/login"
+					@click.native="logout"
 				>
 					Logout
 				</router-link>
@@ -52,8 +53,15 @@
 <script>
 export default {
 	name: "NavBar",
-	data() {
-		return { user: null };
+	computed: {
+		user() {
+			return this.$store.getters["user/user"];
+		},
+	},
+	methods: {
+		logout() {
+			this.$store.dispatch({ type: "user/logout" });
+		},
 	},
 };
 </script>

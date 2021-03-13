@@ -3,7 +3,6 @@ const userService = require('../user/user.service');
 const logger = require('../../services/logger.service');
 
 async function login(username, password) {
-
     const user = await userService.getByUsername(username);
     console.log('🚀 ~ file: auth.service.js ~ line 10 ~ login ~ user', user);
     if (!user) return Promise.reject('Invalid username or password');
@@ -15,17 +14,18 @@ async function login(username, password) {
     return user;
 }
 
-async function signup(username, password, fullname) {
+async function signup(username, password, lname, fname) {
     const saltRounds = 10;
 
     logger.debug(
-        `auth.service - signup with username: ${username}, fullname: ${fullname}`
+        `auth.service - signup with username: ${username}, fullname:${lname}-${fname}`
     );
-    if (!username || !password || !fullname)
+    if (!username || !password || !lname || !fname) {
         return Promise.reject('fullname, username and password are required!');
+    }
 
     const hash = await bcrypt.hash(password, saltRounds);
-    return userService.add({ username, password: hash, fullname });
+    return userService.add({ username, password: hash, lname, fname });
 }
 
 module.exports = {

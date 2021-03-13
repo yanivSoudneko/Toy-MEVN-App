@@ -7,7 +7,10 @@
 <script>
 import navBar from "./components/header.cmp";
 export default {
-	setup() {},
+	created() {
+		console.log("hello");
+		this.$store.dispatch({ type: "user/checkStoredUser" });
+	},
 	components: {
 		navBar,
 	},
