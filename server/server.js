@@ -28,6 +28,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const mainRouter = require('./main.routes');
+// app.use((req, res, next) => {
+//     console.log(req.url);
+//     next();
+// });
 app.use('/api', mainRouter);
 
 const port = process.env.PORT || 3030;

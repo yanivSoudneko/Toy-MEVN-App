@@ -8,7 +8,6 @@ module.exports = {
 
 // Database Name
 const dbName = process.env.DB_NAME;
-
 var dbConn = null;
 
 async function getCollection(collectionName) {
