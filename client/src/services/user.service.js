@@ -40,11 +40,7 @@ async function logout() {
         console.log('🚀 ~ file: user.service.js ~ line 47 ~ logout ~ res', res);
         storageService.remove(LS_KEY);
     } catch (error) {
-        console.log(
-            '🚀 ~ file: user.service.js ~ line 62 ~ logout ~ error',
-            error
-        );
-        return { error };
+        throw { error };
     }
 }
 

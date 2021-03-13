@@ -1,0 +1,8 @@
+.toys {
+    .toy-list {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        align-content: stretch;
+        grid-template-rows: min-content;
+        gap: 15px 5px;
+    }
+}

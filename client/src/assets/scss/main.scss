@@ -11,6 +11,9 @@
 
 // COMPONENTS
 @import 'components/nav-bar';
+@import 'components/toy-preview';
 
 //VIEWS
+@import 'views/about';
+@import 'views/toys';
 @import 'views/home';

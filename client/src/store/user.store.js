@@ -57,5 +57,4 @@ export default {
             commit({ type: 'setUser', user: resUser });
         },
     },
-    modules: {},
 };

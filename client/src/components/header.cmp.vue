@@ -8,6 +8,13 @@
 					Home
 				</router-link>
 				<router-link
+					class="white-text"
+					active-class="active"
+					to="/toys"
+				>
+					Toys
+				</router-link>
+				<router-link
 					v-if="user"
 					class="white-text"
 					active-class="active"

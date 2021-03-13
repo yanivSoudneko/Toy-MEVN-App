@@ -1,0 +1,31 @@
+.toy-preview {
+    padding: 10px;
+    width: 95%;
+    height: 35vh;
+    overflow: hidden;
+    border: $border1;
+    margin: 0 auto;
+
+    h2,
+    .category {
+        text-transform: capitalize;
+    }
+
+    .category {
+        font-style: italic;
+        font-family: Opensans;
+    }
+
+    button {
+        margin-right: 10px;
+    }
+
+    a {
+        font-weight: bold;
+        color: #2c3e50;
+
+        &.router-link-exact-active {
+            color: #42b983;
+        }
+    }
+}
