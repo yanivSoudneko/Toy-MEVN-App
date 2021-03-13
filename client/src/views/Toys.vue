@@ -15,7 +15,7 @@
 <style scoped></style>
 
 <script>
-import toyPreview from "../components/Toy-Preview";
+import toyPreview from "@/components/Toy-Preview";
 export default {
 	name: "Toys",
 	computed: {
