@@ -51,13 +51,21 @@ export default {
             }
         },
         async getById({ commit }, { toyId }) {
-            const toy = await toyService.getById(toyId);
-            commit({ type: 'updateToy', toy });
-            return toy;
+            try {
+                const toy = await toyService.getById(toyId);
+                commit({ type: 'updateToy', toy });
+                return toy;
+            } catch (error) {
+                commit({ type: 'setError', error });
+            }
         },
         async updateToy({ commit }, { toy }) {
-            const currToy = await toyService.save(toy);
-            commit({ type: 'updateToy', toy: currToy });
+            try {
+                const currToy = await toyService.save(toy);
+                commit({ type: 'updateToy', toy: currToy });
+            } catch (error) {
+                commit({ type: 'setError', error });
+            }
         },
     },
 };

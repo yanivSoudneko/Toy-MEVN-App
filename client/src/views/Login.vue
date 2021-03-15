@@ -52,7 +52,7 @@ export default {
 						this.$store.commit({ type: "user/setError" });
 						return;
 					}
-					this.$router.push("/");
+					this.$router.push("/toys");
 				});
 		},
 	},

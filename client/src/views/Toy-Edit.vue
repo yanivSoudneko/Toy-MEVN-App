@@ -36,6 +36,10 @@ export default {
 			this.$store
 				.dispatch({ type: "toy/updateToy", toy: this.toy })
 				.then((res) => {
+					this.$toast.open({
+						message: "toy updated",
+						type: "success",
+					});
 					this.$router.push("/toys");
 				})
 				.catch((err) => {

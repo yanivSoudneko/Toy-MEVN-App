@@ -29,11 +29,11 @@ async function ajax(endpoint, method = 'get', data = null, params = null) {
     );
     try {
         const url = `${BASE_URL}${endpoint}`;
-        console.log(' ~ file: http.service.js ', {
-            url,
-            method,
-            data,
-        });
+        // console.log(' ~ file: http.service.js ', {
+        //     url,
+        //     method,
+        //     data,
+        // });
         const res = await axios({
             url,
             method,

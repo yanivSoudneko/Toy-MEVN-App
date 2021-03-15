@@ -117,10 +117,15 @@ async function update(toy) {
                 toyToSave[key] = toy[key];
             }
         }
-
+        const toyId = toyToSave._id;
+        delete toyToSave._id;
         const collection = await dbService.getCollection(COLLECTION_NAME);
-        await collection.updateOne({ _id: toyToSave._id }, { $set: toyToSave });
-        return toyToSave;
+        const resToy = await collection.findOneAndUpdate(
+            { _id: ObjectId(toyId) },
+            { $set: toyToSave },
+            { returnNewDocument: true }
+        );
+        return resToy.value;
     } catch (error) {
         logger.error(`cannot update toy ${toy._id}`, error);
         throw error;
