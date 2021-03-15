@@ -8,15 +8,12 @@
 		<p class="category">
 			{{ toy.type }}
 		</p>
-		<button class="details" @click="$router.push('/details/' + toy._id)">
-			Details
-		</button>
-		<button
-			class="edit"
-			v-if="user"
-			@click="$router.push('/edit/' + toy._id)"
-		>
+		<button @click="$router.push('/details/' + toy._id)">Details</button>
+		<button v-if="user" @click="$router.push('/edit/' + toy._id)">
 			Edit
+		</button>
+		<button v-if="user" @click="$router.push('/chat/toy/' + toy._id)">
+			chat
 		</button>
 	</div>
 </template>

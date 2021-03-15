@@ -4,46 +4,26 @@
 		<div class="nav-menu flex">
 			<!-- show always -->
 			<template>
-				<router-link class="white-text" active-class="active" to="/">
-					Home
-				</router-link>
-				<router-link
-					class="white-text"
-					active-class="active"
-					to="/toys"
-				>
+				<router-link active-class="active" to="/"> Home </router-link>
+				<router-link active-class="active" to="/toys">
 					Toys
 				</router-link>
-				<router-link
-					v-if="user"
-					class="white-text"
-					active-class="active"
-					to="/about"
-				>
+				<router-link v-if="user" active-class="active" to="/about">
 					About
 				</router-link>
 			</template>
 			<!-- if user -->
 			<template v-if="!user">
-				<router-link
-					class="white-text"
-					active-class="active"
-					to="/login"
-				>
+				<router-link active-class="active" to="/login">
 					Login
 				</router-link>
-				<router-link
-					class="white-text"
-					active-class="active"
-					to="/signup"
-				>
+				<router-link active-class="active" to="/signup">
 					Signup
 				</router-link>
 			</template>
 			<!-- if user is null -->
 			<template v-else>
 				<router-link
-					class="white-text"
 					active-class="active"
 					to="/login"
 					@click.native="logout"

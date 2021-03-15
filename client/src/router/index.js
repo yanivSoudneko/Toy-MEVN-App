@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home';
 import About from '../views/About';
 import Toys from '../views/Toys';
+import Chat from '../views/Chat';
 import ToyDetails from '../views/Toy-Details';
 import ToyEdit from '../views/Toy-Edit';
 import Login from '../views/Login';
@@ -26,11 +27,11 @@ const routes = [
         name: 'Edit',
         component: ToyEdit,
     },
-    // {
-    //     path: '/chat/:toyId',
-    //     name: 'Chat',
-    //     component: Chat
-    // },
+    {
+        path: '/chat/:type/:id',
+        name: 'Chat',
+        component: Chat,
+    },
     {
         path: '/about',
         name: 'About',

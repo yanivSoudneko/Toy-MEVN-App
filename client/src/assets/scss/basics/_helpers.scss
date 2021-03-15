@@ -10,6 +10,12 @@
     &.j-around {
         justify-content: space-around;
     }
+    &.j-center {
+        justify-content: center;
+    }
+    &.a-flex-end {
+        align-items: flex-end;
+    }
 }
 
 .grid {

@@ -1,7 +1,7 @@
 // COLOR PALETTE
 $clr1: #ce2e6c;
-$clr3: #ffb5b5;
 $clr2: #504658;
+$clr3: #ffb5b5;
 $clr4: #f0decb;
 $clr5: #fff;
 
@@ -11,4 +11,5 @@ $break-normal: 740px;
 $break-wide: 960px;
 
 //BORDERS
-$border1: 1px solid $clr2;
+$border1: 1px solid $clr1;
+$border2: 1px solid $clr2;

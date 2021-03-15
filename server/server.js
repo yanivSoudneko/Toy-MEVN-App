@@ -8,7 +8,7 @@ const app = express();
 const http = require('http').createServer(app);
 
 const session = expressSession({
-    secret: 'coding is amazing',
+    secret: process.env.HASH_KEY || 'secret',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -28,11 +28,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const mainRouter = require('./main.routes');
-// app.use((req, res, next) => {
-//     console.log(req.url);
-//     next();
-// });
 app.use('/api', mainRouter);
+
+//SOCKETS
+const { connectSockets } = require('./services/socket.service');
+connectSockets(http, session);
 
 const port = process.env.PORT || 3030;
 http.listen(port, () => {
