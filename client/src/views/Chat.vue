@@ -80,9 +80,6 @@ export default {
 				el.scrollIntoView({ behavior: "smooth" });
 			}
 		},
-		sendMsg() {
-			console.log("Sending", this.msg);
-		},
 		setEmptyMsg() {
 			this.msg = {
 				from: this.user.username,
@@ -91,7 +88,6 @@ export default {
 				created_at: Date.now(),
 				metadata: { type: this.type, _id: this.typeId },
 			};
-			console.log(this.msg);
 		},
 		formattedTime(time) {
 			// return moment(new Date(time), "YYYYMMDD").fromNow();
@@ -106,7 +102,6 @@ export default {
 			socketService.on(ADD_MESSAGE_EVENT, this.addMsg);
 		},
 		sendMsg() {
-			console.log("Sending", this.msg);
 			socketService.emit("chat newMsg", this.msg);
 			this.setEmptyMsg();
 			this.scrollToElement();
