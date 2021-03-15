@@ -51,3 +51,22 @@ db.getCollection('user').aggregate([
 
 // upsert creates new if none exists
 // https://docs.mongodb.com/manual/reference/method/db.collection.update/
+
+db.getCollection('toy').aggregate([
+    {
+        $lookup: {
+            from: 'review',
+            localField: '_id',
+            foreignField: 'toyId',
+            as: 'reviews',
+        },
+    },
+    {
+        $match: {
+            reviews: {
+                $exists: true,
+                $not: { $size: 0 },
+            },
+        },
+    },
+]);
