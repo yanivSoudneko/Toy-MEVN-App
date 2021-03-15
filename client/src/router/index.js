@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home';
 import About from '../views/About';
 import Toys from '../views/Toys';
+import ToyDetails from '../views/Toy-Details';
+import ToyEdit from '../views/Toy-Edit';
 import Login from '../views/Login';
 import Signup from '../views/Signup';
 import { userService } from '../services/user.service';
@@ -14,6 +16,21 @@ const routes = [
         name: 'Home',
         component: Home,
     },
+    {
+        path: '/details/:toyId',
+        name: 'Details',
+        component: ToyDetails,
+    },
+    {
+        path: '/edit/:toyId',
+        name: 'Edit',
+        component: ToyEdit,
+    },
+    // {
+    //     path: '/chat/:toyId',
+    //     name: 'Chat',
+    //     component: Chat
+    // },
     {
         path: '/about',
         name: 'About',
@@ -37,19 +54,20 @@ const routes = [
 ];
 
 const router = new VueRouter({
+    mode: 'history',
     routes,
 });
 
 router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ['/login', '/register', '/', '/toys'];
+    const publicPages = ['/login', '/register', '/', '/toys', '/edit'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = userService.checkStoredUser();
 
     if (authRequired && !loggedIn) {
+        console.error('NOT LOGGED...redirecting by route guard');
         return next('/login');
     }
-    console.log('routing to', to, 'from', from);
     next();
 });
 

@@ -9,6 +9,7 @@ module.exports = {
     save,
     update,
     getById,
+    saveToyChat,
 };
 
 async function query(filterBy = {}) {
@@ -29,9 +30,24 @@ async function query(filterBy = {}) {
 async function getById(toyId) {
     try {
         const collection = await dbService.getCollection(COLLECTION_NAME);
-        const toy = await collection.findOne({ _id: ObjectId(toyId) });
-        toy.createdAt = ObjectId(toy._id).getTimestamp();
-        return toy;
+        // const toy = await collection.findOne({ _id: ObjectId(toyId) });
+        const toy = await collection
+            .aggregate([
+                {
+                    $match: { _id: ObjectId(toyId) },
+                },
+                {
+                    $lookup: {
+                        from: 'review',
+                        localField: '_id',
+                        foreignField: 'toyId',
+                        as: 'reviews',
+                    },
+                },
+            ])
+            .toArray();
+        // toy.createdAt = ObjectId(toy._id).getTimestamp();
+        return toy[0];
     } catch (error) {
         logger.error('cannot find toy:' + toyId, error);
         throw error;
@@ -61,6 +77,33 @@ async function save(toy) {
         return toyToAdd;
     } catch (error) {
         logger.error('failed to save toy', error);
+        throw error;
+    }
+}
+
+async function saveToyChat(toyMsg) {
+    try {
+        console.log(
+            '🚀 ~ file: toy.service.js ~ line 83 ~ saveToyChat ~ toyMsg',
+            toyMsg
+        );
+        const toyId = toyMsg.metadata._id;
+        const collection = await dbService.getCollection(COLLECTION_NAME);
+        const resToy = await collection.findOneAndUpdate(
+            { _id: ObjectId(toyId) },
+            {
+                $push: {
+                    chat_history: {
+                        from: toyMsg.from,
+                        userId: toyMsg.userId,
+                        txt: toyMsg.txt,
+                        created_at: toyMsg.created_at,
+                    },
+                },
+            }
+        );
+    } catch (error) {
+        logger.error('failed to save toy chat history', error);
         throw error;
     }
 }

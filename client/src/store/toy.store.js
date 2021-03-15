@@ -8,6 +8,12 @@ export default {
         toys({ toys }, getters) {
             return JSON.parse(JSON.stringify(toys));
         },
+        toy: ({ toys }) => (toyId) => {
+            // console.log('🚀 ~ file: toy.store.js ~ line 12 ~ toyId', toyId);
+            const toy = toys.find((toy) => toy._id === toyId);
+            // console.log('🚀 ~ file: toy.store.js ~ line 13 ~ toy', toy);
+            return toy;
+        },
         error({ error }) {
             return error;
         },
@@ -22,6 +28,15 @@ export default {
                 });
             }
         },
+        updateToy({ toys }, { toy }) {
+            const idx = toys.findIndex((_toy) => {
+                return _toy._id === toy._id;
+            });
+            if (idx === -1) {
+                return;
+            }
+            toys.splice(idx, 1, toy);
+        },
         setToys(state, { toys }) {
             state.toys = toys;
         },
@@ -31,10 +46,18 @@ export default {
             try {
                 const toys = await toyService.getToys();
                 commit({ type: 'setToys', toys });
-                return true;
             } catch (error) {
                 commit({ type: 'setError', error });
             }
+        },
+        async getById({ commit }, { toyId }) {
+            const toy = await toyService.getById(toyId);
+            commit({ type: 'updateToy', toy });
+            return toy;
+        },
+        async updateToy({ commit }, { toy }) {
+            const currToy = await toyService.save(toy);
+            commit({ type: 'updateToy', toy: currToy });
         },
     },
 };

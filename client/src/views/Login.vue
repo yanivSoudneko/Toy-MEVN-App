@@ -23,7 +23,7 @@ form {
 export default {
 	name: "Login",
 	data() {
-		return { user: { password: "3GqrryGN", username: "darkmiftYY" } };
+		return { user: { password: "123456", username: "admin_yaniv" } };
 	},
 	methods: {
 		async submit() {
