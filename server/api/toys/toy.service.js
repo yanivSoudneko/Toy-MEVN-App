@@ -131,3 +131,71 @@ async function update(toy) {
         throw error;
     }
 }
+
+function _buildCriteria(filterBy) {
+    // debugger;
+    const aggregateFilter = { $match: {} };
+    for (const key in filterBy) {
+        const payload = filterBy[key];
+        if (payload.hasOwnProperty('text')) {
+            aggregateFilter.$match[key] = { $regex: payload.text };
+        }
+        if (payload.hasOwnProperty('bool')) {
+            aggregateFilter.$match[key] = payload.bool;
+        }
+        if (key === 'created_at') {
+            const { start, end } = filterBy[key];
+            aggregateFilter.$match[key] = {};
+            if (start) {
+                aggregateFilter.$match[key].$gte = start;
+            }
+            if (end) {
+                aggregateFilter.$match[key].$lt = end;
+            }
+        }
+        if (key === 'sortBy') {
+            const { field } = filterBy[key];
+            aggregateFilter.$sort = {};
+            aggregateFilter.$sort[field] = 1;
+        }
+        if (key === 'limit') {
+            const { page, limit } = filterBy;
+            aggregateFilter.$skip = page > 0 ? (page - 1) * limit : 0;
+            aggregateFilter.$limit = limit;
+        }
+    }
+    const { $match, $sort, $skip, $limit } = aggregateFilter;
+    const aggregate = [{ $match }, { $sort }, { $skip }, { $limit }];
+    return aggregate;
+}
+// pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0
+// created_at: {
+//     $gte: ISODate("2010-04-29T00:00:00.000Z"),
+//     $lt: ISODate("2010-05-01T00:00:00.000Z")
+// }$dateFromString
+// {
+//     $match: {
+//         name: {
+//             $regex: 'lac',
+//         },
+//         inStock: true,
+//     },
+// },
+function _buildCriteriaOrig(filterBy) {
+    const criteria = {};
+    if (filterBy.txt) {
+        const txtCriteria = { $regex: filterBy.txt, $options: 'i' };
+        criteria.$or = [
+            {
+                username: txtCriteria,
+            },
+            {
+                fullname: txtCriteria,
+            },
+        ];
+    }
+    if (filterBy.minBalance) {
+        criteria.balance = { $gte: filterBy.minBalance };
+    }
+    return criteria;
+}
