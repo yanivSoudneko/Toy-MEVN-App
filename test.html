@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PROJECT</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <script>
+            function _buildCriteria(filterBy) {
+                // debugger;
+                const aggregateFilter = { $match: {} };
+                for (const key in filterBy) {
+                    const payload = filterBy[key];
+                    if (payload.hasOwnProperty('text')) {
+                        aggregateFilter.$match[key] = { $regex: payload.text };
+                    }
+                    if (payload.hasOwnProperty('bool')) {
+                        aggregateFilter.$match[key] = payload.bool;
+                    }
+                    if (key === 'created_at') {
+                        const { start, end } = filterBy[key];
+                        aggregateFilter.$match[key] = {};
+                        if (start) {
+                            aggregateFilter.$match[key].$gte = start;
+                        }
+                        if (end) {
+                            aggregateFilter.$match[key].$lt = end;
+                        }
+                    }
+                    if (key === 'sortBy') {
+                        const { field } = filterBy[key];
+                        aggregateFilter.$sort = {};
+                        aggregateFilter.$sort[field] = 1;
+                    }
+                    if (key === 'limit') {
+                        const { page, limit } = filterBy;
+                        aggregateFilter.$skip =
+                            page > 0 ? (page - 1) * limit : 0;
+                        aggregateFilter.$limit = limit;
+                    }
+                }
+                const { $match, $sort, $skip, $limit } = aggregateFilter;
+                const aggregate = [
+                    { $match },
+                    { $sort },
+                    { $skip },
+                    { $limit },
+                ];
+                return aggregate;
+            }
+
+            const filterBy = {
+                name: { text: 'coco' },
+                inStock: { bool: true },
+                created_at: { start: Date.now(), end: Date.now() },
+                sortBy: { field: 'name' },
+                limit: 5,
+                page: 2,
+            };
+            // pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0
+            // created_at: {
+            //     $gte: ISODate("2010-04-29T00:00:00.000Z"),
+            //     $lt: ISODate("2010-05-01T00:00:00.000Z")
+            // }$dateFromString
+            // {
+            //     $match: {
+            //         name: {
+            //             $regex: 'lac',
+            //         },
+            //         inStock: true,
+            //     },
+            // },
+            const x = _buildCriteria(filterBy);
+            const yy = JSON.stringify(x, null, 2);
+            console.log('🚀 ~ file: server.html ~ line 78 ~ yy', yy);
+            console.log('🚀 ~ file: server.html ~ line 66 ~ x', x);
+        </script>
+    </body>
+</html>
